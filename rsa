@@ -36,15 +36,16 @@ def factorize_rsa_number(file_path):
         print("Invalid number in the file.")
 
 
-if len(sys.argv) != 2:
-    print("Usage: rsa <file>")
-    sys.exit(1)
+if __name__ == '__main__':
+    if len(sys.argv) != 2:
+        print("Usage: python rsa <file>")
+        sys.exit(1)
 
-file_path = sys.argv[1]
+    file_path = sys.argv[1]
 
-start_time = time.time()
-factorize_rsa_number(file_path)
-end_time = time.time()
+    start_time = time.time()
+    factorize_rsa_number(file_path)
+    end_time = time.time()
 
-execution_time = end_time - start_time
-print(f"\nExecution time: {execution_time:.3f} seconds")
+    execution_time = end_time - start_time
+    print(f"\nExecution time: {execution_time:.3f} seconds")
