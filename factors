@@ -1,29 +1,32 @@
-#!/usr/bin/python3
-import sys
+#!/usr/bin/env python3
+""" Factor numbers """
+from sys import argv
+from math import sqrt
+
+
+def open_read_file(file_name):
+    """ Read from file and add to an array """
+    with open(file_name, "r", encoding="utf-8") as file:
+        lines = file.readlines()
+    number_to_factor = [int(line) for line in lines]
+    return number_to_factor
+
 
 def factorize(number):
-    for i in range(2, int(number ** 0.5) + 1):
+    """ Factor the given number """
+    for i in range(2, int(sqrt(number)) + 1):
         if number % i == 0:
             return i, number // i
     return number, 1
 
-def main():
-    if len(sys.argv) != 2:
-        print("Usage: factors <file>")
-        return
 
-    file_path = sys.argv[1]
+def factorize_numbers(numbers):
+    """ Factor each number in the list """
+    for number in numbers:
+        factor1, factor2 = factorize(number)
+        print(f"{number}={factor1}*{factor2}")
 
-    try:
-        with open(file_path, 'r') as file:
-            for line in file:
-                number = int(line.strip())
-                factor1, factor2 = factorize(number)
-                print(f"{number}={factor1}*{factor2}")
-    except FileNotFoundError:
-        print(f"File '{file_path}' not found.")
-    except ValueError:
-        print("Invalid number in the file.")
 
-if __name__ == '__main__':
-    main()
+if len(argv) == 2:
+    numbers = open_read_file(argv[1])
+    factorize_numbers(numbers)
